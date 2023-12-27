@@ -1,21 +1,34 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import CustomIcon from './src/components/CustomIcon';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import TabNavigators from './src/navigators/TabNavigators';
+import DetailsScreen from './src/screens/DetailsScreen';
+import PaymentScreen from './src/screens/PaymentScreen';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <CustomIcon name="like" size={25} />
-      <Text>coffe shop app welcome's</Text>
-      <CustomIcon name="search" size={25} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen
+          name="Tab"
+          component={TabNavigators}
+          options={{animation: 'slide_from_bottom'}}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={{animation: 'slide_from_bottom'}}
+        />
+        <Stack.Screen
+          name="Payment"
+          component={PaymentScreen}
+          options={{animation: 'slide_from_bottom'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
