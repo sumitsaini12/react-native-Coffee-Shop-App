@@ -1,10 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import CustomIcon from './src/components/CustomIcon';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>coffe shop app welcome</Text>
+      <CustomIcon name="like" size={25} />
+      <Text>coffe shop app welcome's</Text>
+      <CustomIcon name="search" size={25} />
     </View>
   );
 }
