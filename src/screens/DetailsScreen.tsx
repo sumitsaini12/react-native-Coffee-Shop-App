@@ -3,11 +3,18 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import {COLORS, FONTFAMILY, FONTSIZE, SPACING} from '../theme/theme';
+import {
+  BORDERRADIUS,
+  COLORS,
+  FONTFAMILY,
+  FONTSIZE,
+  SPACING,
+} from '../theme/theme';
 import {useStore} from '../store/store';
 import ImageBackgroundInfo from '../components/ImageBackgroundInfo';
 
@@ -17,6 +24,7 @@ const DetailsScreen = ({navigation, route}: any) => {
   )[route.params.index];
 
   const [fullDesc, setFullDesc] = useState(false);
+  const [price, setPrice] = useState(ItemOfIndex.prices[0]);
 
   const addToFavoriteList = useStore((state: any) => state.addToFavoriteList);
   const deleteFromFavoriteList = useStore(
@@ -72,6 +80,42 @@ const DetailsScreen = ({navigation, route}: any) => {
               </Text>
             </TouchableWithoutFeedback>
           )}
+          <Text style={styles.InfoTitle}>Size</Text>
+          <View style={styles.SizeOuterContainer}>
+            {ItemOfIndex.prices.map((data: any) => (
+              <TouchableOpacity
+              onPress={()=>{
+                setPrice(data)
+              }}
+                key={data.size}
+                style={[
+                  styles.SizeBox,
+                  {
+                    borderColor:
+                      data.size == price.size
+                        ? COLORS.primaryOrangeHex
+                        : COLORS.primaryDarkGreyHex,
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.SizeText,
+                    {
+                      fontSize:
+                        ItemOfIndex.type === 'bean'
+                          ? FONTSIZE.size_14
+                          : FONTSIZE.size_16,
+                      color:
+                        data.size == price.size
+                          ? COLORS.primaryOrangeHex
+                          : COLORS.primaryLightGreyHex,
+                    },
+                  ]}>
+                  {data.size}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -102,6 +146,24 @@ const styles = StyleSheet.create({
     color: COLORS.primaryWhiteHex,
     marginBottom: SPACING.space_30,
   },
+  SizeOuterContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: SPACING.space_20,
+  },
+  SizeBox: {
+     flex: 1,
+     backgroundColor: COLORS.primaryDarkGreyHex,
+     alignItems: 'center',
+     justifyContent: 'center',
+     height: SPACING.space_24 * 2,
+     borderRadius: BORDERRADIUS.radius_10,
+     borderWidth: 2,
+  },
+  SizeText:{
+    fontFamily: FONTFAMILY.poppins_medium
+  }
 });
 
 export default DetailsScreen;
