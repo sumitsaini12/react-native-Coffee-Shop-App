@@ -17,6 +17,7 @@ import {
 } from '../theme/theme';
 import {useStore} from '../store/store';
 import ImageBackgroundInfo from '../components/ImageBackgroundInfo';
+import PaymentFooter from '../components/PaymentFooter';
 
 const DetailsScreen = ({navigation, route}: any) => {
   const ItemOfIndex = useStore((state: any) =>
@@ -117,6 +118,7 @@ const DetailsScreen = ({navigation, route}: any) => {
             ))}
           </View>
         </View>
+        <PaymentFooter price={price} bottomTitle={"Add To Cart"} buttonPressHandler={()=>{}} />
       </ScrollView>
     </View>
   );
